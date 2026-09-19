@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(powershell -Command \"Stop-Process -Id 4064 -Force\")",
-      "Bash(node server.js)"
-    ]
-  }
-}

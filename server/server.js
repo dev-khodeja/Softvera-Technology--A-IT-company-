@@ -21,7 +21,7 @@ const app = express();
 
 
 // ==================== PROXY SETTING ====================
-// ঠিক এখানে এই লাইনটি বসিয়ে দিন 
+
 app.set('trust proxy', 1);
 // ==================== SECURITY MIDDLEWARE ====================
 
@@ -49,13 +49,11 @@ app.use(cors(corsOptions));
 // 4b. Static file serving for uploaded images
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-// Images can be displayed by the public frontend even when it is hosted on a
+
 // different origin from this API (for example during local development).
 const publicUploadHeaders = helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } });
 
-// Keep the original route for existing links, and expose uploads below /api as
-// well.  Production reverse proxies commonly forward only /api/* to Node;
-// serving files at /api/uploads ensures uploaded images reach this app there.
+
 app.use('/uploads', publicUploadHeaders, express.static(uploadsDir));
 app.use('/api/uploads', publicUploadHeaders, express.static(uploadsDir));
 
@@ -72,12 +70,7 @@ app.use(xss());
 // 8. Prevent parameter pollution
 app.use(hpp());
 
-// 9. Rate limiting - global
-// The admin dashboard alone fires many GET requests per page (stats, orders,
-// contacts, settings, etc.), and the public site does the same for every page
-// navigation (settings/hero/services/etc.) - 100 req/15min was getting hit by
-// completely normal usage and causing confusing failures. Raised to a ceiling
-// that only kicks in for actual abuse, not legitimate browsing/admin work.
+
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 1000,
@@ -1848,9 +1841,7 @@ app.post(
 
 // ==================== ADMIN AUTHENTICATION ROUTES (for future admin panel) ====================
 
-// Register the first admin account. Locks itself out permanently once any
-// admin exists - this must never be reachable by the public once the site is
-// live, otherwise anyone could create their own admin account.
+
 app.post('/api/admin/register', authLimiter, async (req, res) => {
   try {
     const adminCount = await User.countDocuments();
