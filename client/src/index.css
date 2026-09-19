@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SoftVera Technologies — Design Tokens
+   Premium dark navy / electric cyan "IT corporate" theme
+   ========================================================================== */
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Navy scale — base surfaces */
+  --color-navy-950: #05070f;
+  --color-navy-900: #070b16;
+  --color-navy-800: #0b1120;
+  --color-navy-700: #10182c;
+  --color-navy-600: #16213a;
+  --color-navy-500: #1d2c4d;
+
+  /* Cyan/blue accent scale */
+  --color-accent-400: #5eead4;
+  --color-accent-450: #38e2ff;
+  --color-accent-500: #22d3ee;
+  --color-accent-600: #0ea5e9;
+  --color-accent-700: #0284c7;
+
+  /* Electric indigo secondary accent */
+  --color-electric-500: #6366f1;
+  --color-electric-600: #4f46e5;
+
+  --shadow-glow: 0 0 60px -15px rgba(34, 211, 238, 0.35);
+  --shadow-glow-lg: 0 0 120px -20px rgba(34, 211, 238, 0.4);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Dark premium theme for the public site shell only — scoped so it never
+   bleeds into the (intentionally light-themed) admin dashboard. */
+.site-shell {
+  background-color: var(--color-navy-950);
+  color: #e5e9f2;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--color-accent-500);
+  color: var(--color-navy-950);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-500);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-600);
+}
+
+/* ==========================================================================
+   Reusable design primitives
+   ========================================================================== */
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bg-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.glass-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow: var(--shadow-glow);
+}
+
+.gradient-text {
+  background-image: linear-gradient(90deg, #5eead4, #22d3ee, #6366f1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--color-navy-950);
+  background-image: linear-gradient(90deg, var(--color-accent-400), var(--color-accent-600));
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  box-shadow: 0 8px 30px -8px rgba(34, 211, 238, 0.5);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 14px 40px -8px rgba(34, 211, 238, 0.65);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #e5e9f2;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.75rem;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+.btn-outline:hover {
+  border-color: rgba(34, 211, 238, 0.5);
+  background: rgba(34, 211, 238, 0.08);
+  transform: translateY(-2px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-400);
+}
+
+.section-shell {
+  position: relative;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-shell {
+    padding: 7rem 2rem;
+  }
+}
